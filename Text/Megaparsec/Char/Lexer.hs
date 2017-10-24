@@ -397,7 +397,7 @@ charLiteral :: (MonadParsec e s m, Token s ~ Char) => m Char
 charLiteral = label "literal character" $ do
   -- The @~@ is needed to avoid requiring a MonadFail constraint,
   -- and we do know that r will be non-empty if count' succeeds.
-  ~r@(x:_) <- lookAhead $ count' 1 8 C.anyChar
+  ~r@(x:_) <- lookAhead $ count' 1 10 C.anyChar
   case listToMaybe (Char.readLitChar r) of
     Just (c, r') -> count (length r - length r') C.anyChar >> return c
     Nothing      -> unexpected (Tokens (x:|[]))
